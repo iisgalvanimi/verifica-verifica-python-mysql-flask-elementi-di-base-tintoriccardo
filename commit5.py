@@ -19,10 +19,10 @@ try:
     sql = "SELECT * FROM Videogiochi WHERE Anno = %s"
     mycursor.execute(sql, (selectAnno,))
     myresult = mycursor.fetchall()
-
-
-
-        
+    if myresult:
+        for x in myresult:
+            print(x)
+    else:
+        print(f"Nessun videogioco trovato per l'anno {selectAnno}.")
 except ValueError:
-   
     print("Errore: Valore non valido. Riprova con un anno valido.")
