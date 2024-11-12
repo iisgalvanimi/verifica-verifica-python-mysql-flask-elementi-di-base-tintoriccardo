@@ -1,6 +1,5 @@
 import mysql.connector
 
-# Connessione al database
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
