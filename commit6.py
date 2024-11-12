@@ -1,16 +1,21 @@
+
 import mysql.connector
 
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
-  password="",  
+  password="",
   database="DatabaseVerifica"
 )
 
 mycursor = mydb.cursor()
 
-
-print("""1) INSERIRE UN NUOVO VIDEOGIOCO2) ESTRARRE I DATI DAL DB3) ELIMINARE I DATI DAL DB (specificando l'ID)4) ESTRARRE I DATI DAL DB CON SELECT PARTICOLARE""")
+print("""
+1) INSERIRE UN NUOVO VIDEOGIOCO
+2) ESTRARRE I DATI DAL DB
+3) ELIMINARE I DATI DAL DB (specificando l'ID)
+4) ESTRARRE I DATI DAL DB CON SELECT PARTICOLARE
+""")
 inp = int(input())
 
 if inp == 1:
@@ -33,9 +38,8 @@ elif inp == 2:
     myresult = mycursor.fetchall()
     for x in myresult:
         print(x)
-       
-        elif inp == 3:
-       errore = True
+elif inp == 3:
+    errore = True
     while errore:
         rispId = input("Inserisci l'ID del videogioco che vuoi eliminare: ")
         sql = "SELECT EXISTS(SELECT 1 FROM Videogiochi WHERE id = %s)"
@@ -49,5 +53,17 @@ elif inp == 2:
             mydb.commit()
             errore = False
             print(f"Videogioco con ID {rispId} eliminato con successo.")
-            
 
+elif inp == 4:
+    try:
+        selectParticolare = int(input("Qual è l'anno di uscita dei videogiochi che vuoi vedere?: "))
+        sql = "SELECT * FROM Videogiochi WHERE Anno = %s"
+        mycursor.execute(sql, (selectParticolare,))
+        myresult = mycursor.fetchall()
+        if myresult:
+            for x in myresult:
+                print(x)
+        else:
+            print(f"Nessun videogioco trovato per l'anno {selectParticolare}.")
+    except ValueError:
+        print("Errore: Valore non valido. Riprova con un anno valido.")
