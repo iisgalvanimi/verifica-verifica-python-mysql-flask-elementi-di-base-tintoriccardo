@@ -22,8 +22,8 @@ if inp == 1:
     Sviluppatore = input("Inserisci il nome dello sviluppatore: ")
     
     sql = "INSERT INTO Videogiochi (Nome, Anno, Genere, Piattaforma, Sviluppatore) VALUES (%s, %s, %s, %s, %s)"
-    val = (Nome, Anno, Genere, Piattaforma, Sviluppatore)
-    mycursor.execute(sql, val)
+    dati = (Nome, Anno, Genere, Piattaforma, Sviluppatore)
+    mycursor.execute(sql, dati)
     mydb.commit()
     print(mycursor.rowcount, "record inserito.")
     mycursor.execute("SELECT * FROM Videogiochi")
@@ -36,29 +36,29 @@ elif inp == 2:
 elif inp == 3:
     errore = True
     while errore:
-        rispId = input("Inserisci l'ID del videogioco che vuoi eliminare: ")
+        elmId = input("Inserisci l'ID del videogioco che vuoi eliminare: ")
         sql = "SELECT EXISTS(SELECT 1 FROM Videogiochi WHERE id = %s)"
-        mycursor.execute(sql, (rispId,))
+        mycursor.execute(sql, (elmId,))
         exists = mycursor.fetchone()[0]
         if not exists:
-            print(f"L'ID {rispId} non è presente nel database. Riprova.")
+            print(f"L'ID {elmId} non è presente nel database. Riprova.")
         else:
             delete_query = "DELETE FROM Videogiochi WHERE id = %s"
-            mycursor.execute(delete_query, (rispId,))
+            mycursor.execute(delete_query, (elmId,))
             mydb.commit()
             errore = False
-            print(f"Videogioco con ID {rispId} eliminato con successo.")
+            print(f"Videogioco con ID {elmpId} eliminato con successo.")
 
 elif inp == 4:
     try:
-        selectParticolare = int(input("Qual è l'anno di uscita dei videogiochi che vuoi vedere?: "))
+        selectAnno = int(input("Qual è l'anno di uscita dei videogiochi che vuoi vedere?: "))
         sql = "SELECT * FROM Videogiochi WHERE Anno = %s"
-        mycursor.execute(sql, (selectParticolare,))
+        mycursor.execute(sql, (selectAnno,))
         myresult = mycursor.fetchall()
         if myresult:
             for x in myresult:
                 print(x)
         else:
-            print(f"Nessun videogioco trovato per l'anno {selectParticolare}.")
+            print(f"Nessun videogioco trovato per l'anno {selectAnno}.")
     except ValueError:
         print("Errore: Valore non valido. Riprova con un anno valido.")
