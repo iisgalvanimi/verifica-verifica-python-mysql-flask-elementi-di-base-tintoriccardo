@@ -21,4 +21,12 @@ while errore:
     mycursor.execute(sql, (selezionaId,))
     exists = mycursor.fetchone()[0]
     
-    
+    if not exists:
+        print(f"L'ID {selezionaId} non è presente nel database. Riprova.")
+    else:
+
+        delete_query = "DELETE FROM Videogiochi WHERE id = %s"
+        mycursor.execute(delete_query, (selezionaId,))
+        mydb.commit()
+        print(f"Il videogioco con ID {selezionaId} è stato eliminato con successo.")
+        errore = False 
