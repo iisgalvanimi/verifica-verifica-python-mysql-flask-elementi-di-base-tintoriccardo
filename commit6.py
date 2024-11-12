@@ -33,3 +33,21 @@ elif inp == 2:
     myresult = mycursor.fetchall()
     for x in myresult:
         print(x)
+       
+        elif inp == 3:
+       errore = True
+    while errore:
+        rispId = input("Inserisci l'ID del videogioco che vuoi eliminare: ")
+        sql = "SELECT EXISTS(SELECT 1 FROM Videogiochi WHERE id = %s)"
+        mycursor.execute(sql, (rispId,))
+        exists = mycursor.fetchone()[0]
+        if not exists:
+            print(f"L'ID {rispId} non è presente nel database. Riprova.")
+        else:
+            delete_query = "DELETE FROM Videogiochi WHERE id = %s"
+            mycursor.execute(delete_query, (rispId,))
+            mydb.commit()
+            errore = False
+            print(f"Videogioco con ID {rispId} eliminato con successo.")
+            
+
