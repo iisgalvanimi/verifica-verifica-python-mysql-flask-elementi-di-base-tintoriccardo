@@ -28,3 +28,8 @@ if inp == 1:
     print(mycursor.rowcount, "record inserito.")
     mycursor.execute("SELECT * FROM Videogiochi")
 
+elif inp == 2:
+    mycursor.execute("SELECT * FROM Videogiochi")
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        print(x)
