@@ -10,12 +10,7 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor()
 
-print("""
-1) INSERIRE UN NUOVO VIDEOGIOCO
-2) ESTRARRE I DATI DAL DB
-3) ELIMINARE I DATI DAL DB (specificando l'ID)
-4) ESTRARRE I DATI DAL DB CON SELECT PARTICOLARE
-""")
+print("""1) INSERIRE UN NUOVO VIDEOGIOCO2) ESTRARRE I DATI DAL DB3) ELIMINARE I DATI DAL DB (specificando l'ID)4) ESTRARRE I DATI DAL DB CON SELECT PARTICOLARE""")
 inp = int(input())
 
 if inp == 1:
